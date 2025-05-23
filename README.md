@@ -32,3 +32,40 @@ Dafür mussten wir folgende Sachen machen
 
 # Tag 2
 ![alt text](image-2.png)
+
+
+
+# Tag 3
+- Ändern Sie in der Datenbank hotel den Typ der Tabelle benutzer zu InnoDB.
+    ``ALTER TABLE benutzer ENGINE = InnoDB;``
+    ![InnoDB Engine](image-5.png)
+
+
+- Lassen Sie sich den Typ jeder Tabelle anzeigen. Kontrollieren Sie, dass die Tabelle benutzer  das Format InnoDB hat.
+    ```
+    SELECT TABLE_NAME, ENGINE
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = 'hotel';
+    ```
+    ![alt text](image-6.png)
+
+
+- Geben Sie Werte ein und kontrollieren Sie die Veränderungen in Ihrem data-Verzeichnis und in dem Verzeichnis der Datenbank hotel.
+    `SHOW VARIABLES LIKE 'datadir';`
+    ![Datadiroutput](image-7.png)
+    ![alt text](image-8.png)
+- Kontrollieren Sie die Dateien in der Dateiordnerstruktur des Datenbank-Verzeichnisses.
+
+
+## Transaction
+![ClientA](image-9.png)
+Hier habe ich mit `Begin;` die Transaktion gestartet, und dann einen Wert aktualiserit, 
+![ClientB](image-10.png)
+Bei **Client B** hat sich es noch nicht aktualiseirt, da die Transaction noch nicht commited worden ist.
+
+Danach habe ich auf **Client B** eine Transaction gestartet, und versucht ein Wert zu aktualisieren, jedoch ging es nicht da die Transaction auf **Client A** noch am laufen war.
+Dan habe ich die transaction auf **Client A** beendet, und dann auf **Client B** das updaten des Wertes nochmals gemacht, und es hat funktioniert, auf **Client A** ist immernoch 11, während auf **Client B** der Wert schon auf 14 ist
+
+Nachdem habe ich ``ROLLBACK``; verwendet, und der wert ist auf 11 zurück gegangen.
+
+## Locking
