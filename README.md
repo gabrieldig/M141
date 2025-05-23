@@ -68,4 +68,27 @@ Dan habe ich die transaction auf **Client A** beendet, und dann auf **Client B**
 
 Nachdem habe ich ``ROLLBACK``; verwendet, und der wert ist auf 11 zurück gegangen.
 
+---
+
+Locking-Mechanismen |Bereich (Level) - Sperrung von ... |
+| --------- | ------------|
+|MyISAM | Table-Level-Locking - ganze Tabelle |
+| BDB | Page-Level-Locking - Speicherseite |
+| Gemini |Page-Level-Locking – Speicherseite |
+| InnoDB | Row-Level-Locking - Datensatz |
 ## Locking
+Ich habe eine Tabelle mitarbeiter stellt, und dort daten eingefügt, ich habe dann die Tabelle mit ``LOCK TABLES mitarbeiter WRITE;`` gesperrt und versucht in der **Konsole B** die Daten zu ausschreiben, jedoch passiert nichts und ich musste es slebst abbrechen. (MyISAM)
+![alt text](image-11.png)
+
+### Transaction Locking
+Wenn ich jetzt eine transaction starte und ein Select * from mit dem parameter ``for update`` mache, ist es auch blockiert
+![alt text](image-12.png)
+
+| Sperrtyp                 | Befehl                           | Engine | Sperrbereich       | Blockiert was?                          | Bemerkung                                 |
+| ------------------------ | -------------------------------- | ------ | ------------------ | --------------------------------------- | ----------------------------------------- |
+| **Table Lock (WRITE)**   | `LOCK TABLE tabelle WRITE;`      | MyISAM | Ganze Tabelle      | SELECT, UPDATE, DELETE anderer Sessions | Nur bei MyISAM sinnvoll/nötig             |
+| **Table Lock (READ)**    | `LOCK TABLE tabelle READ;`       | MyISAM | Ganze Tabelle      | UPDATE, DELETE anderer Sessions         | Mehrere Leser möglich, keine Schreiber    |
+| **Row Lock (Exclusive)** | `SELECT ... FOR UPDATE;`         | InnoDB | Ausgewählte Zeilen | UPDATE, DELETE dieser Zeilen            | Nur innerhalb Transaktion, für Änderungen |
+| **Row Lock (Shared)**    | `SELECT ... LOCK IN SHARE MODE;` | InnoDB | Ausgewählte Zeilen | UPDATE, DELETE dieser Zeilen            | Lesen erlaubt, schützt vor Änderungen     |
+| **Implizites Locking**   | `INSERT / UPDATE / DELETE`       | InnoDB | Betroffene Zeilen  | Andere Änderungen auf dieselben Zeilen  | Automatisch durch InnoDB                  |
+| **Sperre auf Metadaten** | z. B. `ALTER TABLE`              | alle   | Ganze Tabelle      | Alle Zugriffe                           | Temporär bei Strukturänderungen           |
