@@ -57,7 +57,7 @@ Dafür mussten wir folgende Sachen machen
 - Kontrollieren Sie die Dateien in der Dateiordnerstruktur des Datenbank-Verzeichnisses.
 
 
-## Transaction
+## Transactions
 ![ClientA](image-9.png)
 Hier habe ich mit `Begin;` die Transaktion gestartet, und dann einen Wert aktualiserit, 
 ![ClientB](image-10.png)
@@ -92,3 +92,51 @@ Wenn ich jetzt eine transaction starte und ein Select * from mit dem parameter `
 | **Row Lock (Shared)**    | `SELECT ... LOCK IN SHARE MODE;` | InnoDB | Ausgewählte Zeilen | UPDATE, DELETE dieser Zeilen            | Lesen erlaubt, schützt vor Änderungen     |
 | **Implizites Locking**   | `INSERT / UPDATE / DELETE`       | InnoDB | Betroffene Zeilen  | Andere Änderungen auf dieselben Zeilen  | Automatisch durch InnoDB                  |
 | **Sperre auf Metadaten** | z. B. `ALTER TABLE`              | alle   | Ganze Tabelle      | Alle Zugriffe                           | Temporär bei Strukturänderungen           |
+
+---
+# Tag 4
+## Security 
+**Benutzer**
+```sql
+CREATE USER 'user_local'@'localhost' IDENTIFIED BY 'pass_local';
+CREATE USER 'user_remote1'@'192.168.1.100' IDENTIFIED BY 'pass_remote1';
+
+-- Remote Benutzer mit beliebiger IP
+CREATE USER 'user_remote2'@'%' IDENTIFIED BY 'pass_remote2';
+
+-- Benutzer mit Hostname
+CREATE USER 'user_host'@'myhost.domain.local' IDENTIFIED BY 'pass_host';
+```
+```sql
+SELECT User, Host, authentication_string FROM mysql.user;
+```
+![alt text](image-15.png)
+___ 
+```sql
+SELECT * FROM mysql.global_priv;
+```
+![alt text](image-16.png)
+
+# Von localhost:
+mysql -u user_local -p -h 127.0.0.1   # geht
+mysql -u user_remote2 -p -h 127.0.0.1 # geht NICHT
+mysql -u user_remote1 -p -h 127.0.0.1 # geht
+
+# Von anderem Rechner:
+mysql -u user_remote1 -p -h 192.168.1.100 #geht wenn von dieser IP aus gemacht.
+mysql -u user_remote3 -p -h myhost.domain.local # geht je nach domain
+
+---
+So kann man Passwörter von Benutzer verändern.
+```sql
+ALTER USER 'user_local'@'localhost' IDENTIFIED BY 'newpass_local';
+```
+Der **Host** eines Benutzers kann man nicht direkt verändern, jedoch kann man in der Datenbank mysql, Benutzerdate Bearbeiten:
+
+```sql
+
+use mysql;
+
+UPDATE USER
+SET HOST = 'localhost' WHERE User = 'user_remote2' AND Host = '%'
+```
