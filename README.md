@@ -1,12 +1,12 @@
 # Modul 141
-
+> LB3 ->[LB3.md](LB3.md)
 # Tag 1 
 Heute haben Ich die Lokale Umgebung bereitgestellt.
 
 Dafür mussten wir folgende Sachen machen
 - [x] **Xampp Installieren**
 - [x] **Systemvariable hinzufügen**
-    Dafür musste ich nur in die Systemvariablen gehen, dort auf Path drücken, und eine neue Pfad-Variable hinzufügen.
+    Dafür musste ich nur in die Systemvariablen gehen, dort auf Path drücken, und eine neue Pfad-Variable hinzufügen. 
     ![Systemvariable](image.png)
 
 - [x] **Mysql Benutzer Anlegen**
@@ -48,7 +48,7 @@ Dafür mussten wir folgende Sachen machen
     WHERE TABLE_SCHEMA = 'hotel';
     ```
     ![alt text](image-6.png)
-
+ 
 
 - Geben Sie Werte ein und kontrollieren Sie die Veränderungen in Ihrem data-Verzeichnis und in dem Verzeichnis der Datenbank hotel.
     `SHOW VARIABLES LIKE 'datadir';`
@@ -140,3 +140,6 @@ use mysql;
 UPDATE USER
 SET HOST = 'localhost' WHERE User = 'user_remote2' AND Host = '%'
 ```
+# Tag 5
+## Rolen
+IN Mysql haben Rolen die Funktion einer Gruppe, man kann den Gruppen `SELECT`, `INSERT`, ``UPDATE`` und ``DROP`` vergeben. Dann kann man den Benutzern von MYSQL die Rolen entweder auf den Standart setzten, oder während der aktuellen Sitzung temporär mit ``SET ROLE role;`` setzten.
