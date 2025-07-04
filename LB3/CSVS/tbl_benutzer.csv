@@ -1,0 +1,11 @@
+Benutzer_ID;Benutzername;PasswortHash;Vorname;Name;Benutzergruppe;erfasst;deaktiviert;aktiv
+1;admin;as*d$;NULL;Administrator;1;2018-02-18 00:00:00;;1
+2;mueller;P%ui&kio99;Heinz;Müller;1;2001-06-01 00:00:00;;1
+3;emueller;esther89;Esther;Müller;2;2023-12-01 00:00:00;2001-12-01 00:00:00;0
+7;sauber;pink765;Peter;Sauber;2;2019-01-06 00:00:00;;1
+8;niederer;hhh656;Max;Niederer;2;2019-12-15 00:00:00;2001-06-15 00:00:00;0
+11;angst;immer763;NULL;Angst;2;2004-04-04 14:21:49;;1
+12;reimann;vr653!;Victoria;Reimann;2;2004-03-15 00:00:00;;1
+13;gubler;fritz232$;NULL;Gubler;1;2004-04-04 14:23:40;;1
+14;burk;P//345OO;Ana;Burkhardt;1;2003-01-01 00:00:00;2004-03-01 00:00:00;0
+26;benjang;bj2545::;Benjamin;Angst;1;2004-04-04 14:13:44;;1
