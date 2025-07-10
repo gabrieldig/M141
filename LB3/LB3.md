@@ -1,9 +1,8 @@
 # Dokumentation zur Migration der Datenbank "Backpacker\_LB3"
 
 **Name:** Gabriel Di Giuseppe
-**Modul:** M141 – DB-Systeme in Betrieb nehmen
+**Modul:** M141 c
 
----
 
 ## 0. Anforderungsdefinition & Infrastruktur (SMART-Ziele)
 

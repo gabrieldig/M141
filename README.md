@@ -1,5 +1,5 @@
 # Modul 141
-> LB3 ->[LB3.md](LB3.md)
+> LB3 ->[LB3.md](lb3/LB3.md)
 # Tag 1 
 Heute haben Ich die Lokale Umgebung bereitgestellt.
 
